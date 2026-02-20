@@ -73,16 +73,21 @@ const Navigation = () => {
 
   return (
     <motion.nav
-      className="bg-white shadow-lg fixed w-full z-50"
+      className="bg-white shadow-lg fixed w-full z-50 overflow-visible"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 120, damping: 14 }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex items-center">
-            <Link to="/" className="flex-shrink-0">
-              <SimpleLogo className="h-8 w-auto" />
+        <div className="flex justify-between h-16 overflow-visible">
+          <div className="flex items-center overflow-visible">
+            <Link to="/" className="flex-shrink-0 flex items-start pt-1">
+              <img
+                src="/images/logo-mapartdesoleil.png"
+                alt="Ma part de soleil"
+                className="h-[90px] w-auto"
+                style={{ marginBottom: '-26px' }}
+              />
             </Link>
           </div>
           <div className="hidden md:flex md:items-center md:space-x-4">
@@ -90,9 +95,8 @@ const Navigation = () => {
               <Link
                 key={item.name}
                 to={item.path}
-                className={`text-gray-700 hover:text-[#FF7F00] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 ${
-                  location.pathname === item.path ? 'text-[#FF7F00] font-bold' : ''
-                }`}
+                className={`text-gray-700 hover:text-[#FF7F00] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 ${location.pathname === item.path ? 'text-[#FF7F00] font-bold' : ''
+                  }`}
               >
                 {item.name}
               </Link>
@@ -100,9 +104,8 @@ const Navigation = () => {
             {isAdmin && (
               <Link
                 to="/admin"
-                className={`text-gray-700 hover:text-[#FF7F00] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 ${
-                  location.pathname.startsWith('/admin') ? 'text-[#FF7F00] font-bold' : ''
-                }`}
+                className={`text-gray-700 hover:text-[#FF7F00] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 ${location.pathname.startsWith('/admin') ? 'text-[#FF7F00] font-bold' : ''
+                  }`}
               >
                 Admin
               </Link>
@@ -151,9 +154,8 @@ const Navigation = () => {
             <Link
               key={item.name}
               to={item.path}
-              className={`block text-gray-700 hover:text-[#FF7F00] hover:bg-gray-50 px-3 py-2 rounded-md text-base font-medium transition-colors duration-300 ${
-                location.pathname === item.path ? 'text-[#FF7F00] font-bold bg-gray-100' : ''
-              }`}
+              className={`block text-gray-700 hover:text-[#FF7F00] hover:bg-gray-50 px-3 py-2 rounded-md text-base font-medium transition-colors duration-300 ${location.pathname === item.path ? 'text-[#FF7F00] font-bold bg-gray-100' : ''
+                }`}
               onClick={() => setIsOpen(false)}
             >
               {item.name}
@@ -162,9 +164,8 @@ const Navigation = () => {
           {isAdmin && (
             <Link
               to="/admin"
-              className={`block text-gray-700 hover:text-[#FF7F00] hover:bg-gray-50 px-3 py-2 rounded-md text-base font-medium transition-colors duration-300 ${
-                location.pathname.startsWith('/admin') ? 'text-[#FF7F00] font-bold bg-gray-100' : ''
-              }`}
+              className={`block text-gray-700 hover:text-[#FF7F00] hover:bg-gray-50 px-3 py-2 rounded-md text-base font-medium transition-colors duration-300 ${location.pathname.startsWith('/admin') ? 'text-[#FF7F00] font-bold bg-gray-100' : ''
+                }`}
               onClick={() => setIsOpen(false)}
             >
               Admin
