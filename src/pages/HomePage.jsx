@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { ArrowDown, Zap, Users, Leaf } from 'lucide-react';
+import { ArrowDown, Zap, Users, Leaf, ChevronLeft, ChevronRight } from 'lucide-react';
 import { allProjects } from '@/data/projects';
 import ProjectCard from '@/components/ProjectCard';
 import heroRoofImage from '@/assets/hero-roof.jpg'; // Import the image
@@ -15,6 +15,22 @@ const HomePage = () => {
   const [savings, setSavings] = useState(0);
   const [showSavings, setShowSavings] = useState(false);
   const [randomProjects, setRandomProjects] = useState([]);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const carouselImages = [
+    { src: '/images/carousel-1.jpg', alt: 'Installation panneaux solaires sur vignoble' },
+    { src: '/images/carousel-2.jpg', alt: 'Panneaux solaires sur hangar agricole' },
+    { src: '/images/carousel-3.jpg', alt: 'Bâtiment agricole avec installation solaire' },
+    { src: '/images/carousel-4.jpg', alt: 'Installation solaire en campagne' },
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % carouselImages.length);
+    }, 4500);
+    return () => clearInterval(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     try {
@@ -92,7 +108,7 @@ const HomePage = () => {
                 Découvrir les projets
               </Button>
             </Link>
-             <Link to="/acc">
+            <Link to="/acc">
               <Button size="lg" variant="outline" className="text-black border-white hover:bg-white hover:text-black text-lg px-8 py-3 rounded-full shadow-lg transform hover:scale-105 transition-transform duration-300">
                 Comment ça marche ?
               </Button>
@@ -101,50 +117,56 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Why Choose Us Section */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <motion.div
-              className="bg-gray-50 p-6 rounded-lg shadow-lg flex flex-col items-center"
-              initial={{ scale: 0.9, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+            {/* Carousel Section */}
+      <section className="relative w-full overflow-hidden" style={{ height: '480px' }}>
+        {/* Slides */}
+        <div className="relative w-full h-full">
+          {carouselImages.map((img, index) => (
+            <div
+              key={index}
+              className="absolute inset-0 transition-opacity duration-700"
+              style={{ opacity: currentSlide === index ? 1 : 0 }}
             >
-              <Zap className="h-12 w-12 text-[#FF7F00] mb-4" />
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Énergie Locale</h3>
-              <p className="text-gray-600 text-center">
-                Soutenez la production d’énergie verte dans votre région et renforcez l’indépendance énergétique de votre territoire.
-              </p>
-            </motion.div>
-            <motion.div
-              className="bg-gray-50 p-6 rounded-lg shadow-lg flex flex-col items-center"
-              initial={{ scale: 0.9, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <Users className="h-12 w-12 text-[#FF7F00] mb-4" />
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Projet Citoyen</h3>
-              <p className="text-gray-600 text-center">
-                Rejoignez une communauté de consommateurs engagés dans un modèle associatif, juste et transparent.
-              </p>
-            </motion.div>
-            <motion.div
-              className="bg-gray-50 p-6 rounded-lg shadow-lg flex flex-col items-center"
-              initial={{ scale: 0.9, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              <Leaf className="h-12 w-12 text-[#FF7F00] mb-4" />
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Impact Durable</h3>
-              <p className="text-gray-600 text-center">
-                Participez à la réduction des émissions de CO2 et à la dynamisation de l’économie locale.
-              </p>
-            </motion.div>
-          </div>
+              <img
+                src={img.src}
+                alt={img.alt}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/30" />
+            </div>
+          ))}
+        </div>
+
+        {/* Prev arrow */}
+        <button
+          onClick={() => setCurrentSlide((prev) => (prev - 1 + carouselImages.length) % carouselImages.length)}
+          className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white text-gray-800 rounded-full p-2 shadow-lg transition-all z-10"
+          aria-label="Image précédente"
+        >
+          <ChevronLeft className="h-6 w-6" />
+        </button>
+
+        {/* Next arrow */}
+        <button
+          onClick={() => setCurrentSlide((prev) => (prev + 1) % carouselImages.length)}
+          className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white text-gray-800 rounded-full p-2 shadow-lg transition-all z-10"
+          aria-label="Image suivante"
+        >
+          <ChevronRight className="h-6 w-6" />
+        </button>
+
+        {/* Dots */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+          {carouselImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`w-3 h-3 rounded-full transition-all ${
+                currentSlide === index ? 'bg-white scale-125' : 'bg-white/50'
+              }`}
+              aria-label={`Aller à l'image ${index + 1}`}
+            />
+          ))}
         </div>
       </section>
 
@@ -281,7 +303,7 @@ const HomePage = () => {
           >
             Ils économisent déjà avec nous.
           </motion.h2>
-           <p className="text-lg text-gray-700 mb-10 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-700 mb-10 max-w-2xl mx-auto">
             Rejoignez une communauté qui fait la différence pour la planète et pour son portefeuille.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
