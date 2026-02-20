@@ -59,12 +59,11 @@ const HomePage = () => {
         <meta name="description" content="Ma part de soleil : Devenez acteur de la transition énergétique locale en participant à des projets solaires collectifs." />
       </Helmet>
 
-      {/* Hero Section */}
       <section
         className="relative bg-cover bg-center py-20 md:py-32 text-white flex items-center justify-center"
-        style={{ backgroundImage: `url(${heroRoofImage})` }}
+        style={{ backgroundImage: 'url(/images/photo-solaire.jpg)' }}
       >
-        <div className="absolute inset-0 bg-black opacity-50"></div>
+        <div className="absolute inset-0 bg-black opacity-40"></div>
         <div className="relative z-10 text-center px-4">
           <motion.h1
             className="text-4xl md:text-6xl font-extrabold leading-tight mb-4 drop-shadow-lg"
@@ -102,14 +101,7 @@ const HomePage = () => {
         </div>
       </section>
 
-            {/* Photo Section */}
-      <section className="w-full overflow-hidden" style={{ height: '480px' }}>
-        <img
-          src="/images/photo-solaire.jpg"
-          alt="Installation panneaux solaires"
-          className="w-full h-full object-cover"
-        />
-      </section>
+
 
       {/* How It Works Section */}
       <section className="py-16 bg-gray-50">
