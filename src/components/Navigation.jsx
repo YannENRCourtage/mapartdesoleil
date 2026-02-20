@@ -85,8 +85,8 @@ const Navigation = () => {
               <img
                 src="/images/logo-mapartdesoleil.png"
                 alt="Ma part de soleil"
-                className="h-[90px] w-auto"
-                style={{ marginBottom: '-26px' }}
+                className="h-[110px] w-auto"
+                style={{ marginBottom: '-46px' }}
               />
             </Link>
           </div>
