@@ -8,17 +8,17 @@ import { useParams, useNavigate } from 'react-router-dom';
 import SignatureCanvas from 'react-signature-canvas';
 import { CheckCircle, FileText, Download, Eraser, PenSquare } from 'lucide-react';
 import { allProjects } from '@/data/projects';
-import { mockApplications } from '@/data/mockData';
+import { applications as mockApplications } from '@/data/mockData';
 
 const SignaturePad = ({ title, onSign, signatureRef }) => {
   const [isSigned, setIsSigned] = useState(false);
-  
+
   const clearSignature = () => {
     signatureRef.current.clear();
     setIsSigned(false);
     onSign(false);
   };
-  
+
   const handleEndStroke = () => {
     if (!signatureRef.current.isEmpty()) {
       setIsSigned(true);
@@ -54,7 +54,7 @@ const ElectronicSignaturePage = () => {
 
   const application = mockApplications.find(app => app.id === applicationId);
   const project = application ? allProjects.find(p => p.id === application.projects[0].projectId) : null;
-  
+
   const contractSignRef = useRef(null);
   const sepaSignRef = useRef(null);
 

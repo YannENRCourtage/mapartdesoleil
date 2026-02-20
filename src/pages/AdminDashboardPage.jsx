@@ -5,7 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Users, HardHat, FileDown, CheckCircle } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
-import { mockProjects, mockUsers } from '@/data/mockData';
+import { users as mockUsers } from '@/data/mockData';
+import { allProjects as mockProjects } from '@/data/projects';
 import { utils, writeFile } from 'xlsx';
 import { useNavigate } from 'react-router-dom';
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet';
-import { 
+import {
   Users, FolderOpen, Download, Settings, Search, Filter,
   Plus, Edit, Trash2, Check, X, Eye, FileSpreadsheet
 } from 'lucide-react';
@@ -13,7 +13,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Navigation from '@/components/Navigation';
-import { mockProjects, mockUsers } from '@/data/mockData';
+import { users as mockUsers } from '@/data/mockData';
+import { allProjects as mockProjects } from '@/data/projects';
 import { useToast } from '@/components/ui/use-toast';
 
 const AdminPage = () => {
@@ -30,15 +31,15 @@ const AdminPage = () => {
 
   const filteredUsers = mockUsers.filter(user => {
     const matchesSearch = user.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         user.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         user.email.toLowerCase().includes(searchTerm.toLowerCase());
+      user.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus = statusFilter === 'all' || user.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
 
   const filteredProjects = mockProjects.filter(project => {
     const matchesSearch = project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         project.location.toLowerCase().includes(searchTerm.toLowerCase());
+      project.location.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesSearch;
   });
 
@@ -79,7 +80,7 @@ const AdminPage = () => {
 
       <div className="min-h-screen">
         <Navigation />
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Header */}
           <motion.div
@@ -184,7 +185,7 @@ const AdminPage = () => {
                           className="pl-10"
                         />
                       </div>
-                      
+
                       <Select value={statusFilter} onValueChange={setStatusFilter}>
                         <SelectTrigger className="w-full sm:w-48">
                           <SelectValue placeholder="Statut" />
@@ -369,7 +370,7 @@ const AdminPage = () => {
               <TabsContent value="exports" className="mt-6">
                 <div className="space-y-6">
                   <h2 className="text-xl font-semibold text-gray-900">Exports de données</h2>
-                  
+
                   <div className="grid md:grid-cols-2 gap-6">
                     <Card>
                       <CardHeader>
@@ -437,7 +438,7 @@ const AdminPage = () => {
               <TabsContent value="settings" className="mt-6">
                 <div className="space-y-6">
                   <h2 className="text-xl font-semibold text-gray-900">Paramètres de la plateforme</h2>
-                  
+
                   <div className="grid gap-6">
                     <Card>
                       <CardHeader>

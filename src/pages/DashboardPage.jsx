@@ -2,21 +2,22 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
-import { 
-  TrendingUp, Euro, Zap, Calendar, FileText, Bell, 
-  Settings, Download, Eye, PieChart, BarChart3 
+import {
+  TrendingUp, Euro, Zap, Calendar, FileText, Bell,
+  Settings, Download, Eye, PieChart, BarChart3
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Navigation from '@/components/Navigation';
-import { mockProjects, mockUsers } from '@/data/mockData';
+import { users as mockUsers } from '@/data/mockData';
+import { allProjects as mockProjects } from '@/data/projects';
 import { useToast } from '@/components/ui/use-toast';
 
 const DashboardPage = () => {
   const { toast } = useToast();
-  
+
   // Simulation d'un utilisateur connecté
   const currentUser = mockUsers[0];
   const userProjects = currentUser.projects.map(up => ({
@@ -26,7 +27,7 @@ const DashboardPage = () => {
   }));
 
   const totalInvestment = currentUser.totalInvestment;
-  const estimatedAnnualReturn = userProjects.reduce((sum, project) => 
+  const estimatedAnnualReturn = userProjects.reduce((sum, project) =>
     sum + (project.userInvestment * project.expectedReturn / 100), 0
   );
 
@@ -48,7 +49,7 @@ const DashboardPage = () => {
 
       <div className="min-h-screen">
         <Navigation />
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Header */}
           <motion.div
@@ -173,7 +174,7 @@ const DashboardPage = () => {
                                   </Badge>
                                 </div>
                                 <p className="text-gray-600 mb-3">{project.location}</p>
-                                
+
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                                   <div>
                                     <span className="text-gray-500">Investi</span>
@@ -195,7 +196,7 @@ const DashboardPage = () => {
                                   </div>
                                 </div>
                               </div>
-                              
+
                               <div className="flex gap-2">
                                 <Button asChild variant="outline" size="sm">
                                   <Link to={`/projet/${project.id}`}>
@@ -220,7 +221,7 @@ const DashboardPage = () => {
               <TabsContent value="performance" className="mt-6">
                 <div className="space-y-6">
                   <h2 className="text-xl font-semibold text-gray-900">Performance de vos investissements</h2>
-                  
+
                   <div className="grid md:grid-cols-2 gap-6">
                     <Card>
                       <CardHeader>
@@ -320,7 +321,7 @@ const DashboardPage = () => {
               <TabsContent value="settings" className="mt-6">
                 <div className="space-y-6">
                   <h2 className="text-xl font-semibold text-gray-900">Paramètres du compte</h2>
-                  
+
                   <div className="grid gap-6">
                     <Card>
                       <CardHeader>
@@ -360,29 +361,29 @@ const DashboardPage = () => {
                         <div className="space-y-3">
                           <div className="flex items-center justify-between">
                             <span className="text-sm font-medium text-gray-700">Notifications par email</span>
-                            <input 
-                              type="checkbox" 
+                            <input
+                              type="checkbox"
                               checked={currentUser.notifications.email}
                               onChange={() => handleAction('toggle')}
-                              className="rounded border-gray-300 text-amber-600 focus:ring-amber-500" 
+                              className="rounded border-gray-300 text-amber-600 focus:ring-amber-500"
                             />
                           </div>
                           <div className="flex items-center justify-between">
                             <span className="text-sm font-medium text-gray-700">Notifications SMS</span>
-                            <input 
-                              type="checkbox" 
+                            <input
+                              type="checkbox"
                               checked={currentUser.notifications.sms}
                               onChange={() => handleAction('toggle')}
-                              className="rounded border-gray-300 text-amber-600 focus:ring-amber-500" 
+                              className="rounded border-gray-300 text-amber-600 focus:ring-amber-500"
                             />
                           </div>
                           <div className="flex items-center justify-between">
                             <span className="text-sm font-medium text-gray-700">Notifications push</span>
-                            <input 
-                              type="checkbox" 
+                            <input
+                              type="checkbox"
                               checked={currentUser.notifications.push}
                               onChange={() => handleAction('toggle')}
-                              className="rounded border-gray-300 text-amber-600 focus:ring-amber-500" 
+                              className="rounded border-gray-300 text-amber-600 focus:ring-amber-500"
                             />
                           </div>
                         </div>
