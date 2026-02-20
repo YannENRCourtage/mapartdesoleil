@@ -7,7 +7,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/components/ui/use-toast';
-import { mockUsers, mockProjects } from '@/data/mockData';
+import { users as mockUsers } from '@/data/mockData';
+import { allProjects as mockProjects } from '@/data/projects';
 import { Search, ArrowLeft, Download, Eye, Edit, Trash2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { utils, writeFile } from 'xlsx';
@@ -26,7 +27,7 @@ const AdminUsersPage = () => {
     const filteredUsers = useMemo(() => {
         return users.filter(user => {
             const searchLower = searchTerm.toLowerCase();
-            const matchesSearch = 
+            const matchesSearch =
                 user.firstName.toLowerCase().includes(searchLower) ||
                 user.lastName.toLowerCase().includes(searchLower) ||
                 user.email.toLowerCase().includes(searchLower);
@@ -56,28 +57,28 @@ const AdminUsersPage = () => {
         utils.book_append_sheet(wb, ws, "Utilisateurs");
         writeFile(wb, "utilisateurs_mapartdesoleil.xlsx");
         toast({
-          title: "Exportation réussie",
-          description: "La liste des utilisateurs filtrés a été téléchargée.",
+            title: "Exportation réussie",
+            description: "La liste des utilisateurs filtrés a été téléchargée.",
         });
     };
 
     const handleSaveUser = () => {
         if (!editingUser) return;
         setUsers(users.map(u => u.id === editingUser.id ? editingUser : u));
-        toast({ title: "Utilisateur sauvegardé", description: "Les informations ont été mises à jour."});
+        toast({ title: "Utilisateur sauvegardé", description: "Les informations ont été mises à jour." });
         setEditingUser(null);
     };
-    
+
     const handleDeleteUser = (userId) => {
         setUsers(users.filter(u => u.id !== userId));
-        toast({ title: "Utilisateur supprimé", description: "L'utilisateur a été supprimé avec succès."});
+        toast({ title: "Utilisateur supprimé", description: "L'utilisateur a été supprimé avec succès." });
     };
 
     const handleAction = (action, user) => {
         if (action === 'edit') {
-            setEditingUser({...user});
+            setEditingUser({ ...user });
         } else if (action === 'view') {
-             toast({
+            toast({
                 title: `Action: ${action}`,
                 description: `Fonctionnalité non implémentée pour l'utilisateur ID: ${user.id}.`
             });
@@ -178,7 +179,7 @@ const AdminUsersPage = () => {
                     </Card>
                 </motion.div>
             </div>
-             {editingUser && (
+            {editingUser && (
                 <Dialog open={!!editingUser} onOpenChange={() => setEditingUser(null)}>
                     <DialogContent>
                         <DialogHeader>
@@ -186,23 +187,23 @@ const AdminUsersPage = () => {
                             <DialogDescription>{editingUser.firstName} {editingUser.lastName}</DialogDescription>
                         </DialogHeader>
                         <div className="grid gap-4 py-4">
-                          <div className="grid grid-cols-2 gap-4">
-                             <div>
-                               <Label htmlFor="firstName">Prénom</Label>
-                               <Input id="firstName" value={editingUser.firstName} onChange={(e) => setEditingUser({...editingUser, firstName: e.target.value})} />
-                             </div>
-                             <div>
-                               <Label htmlFor="lastName">Nom</Label>
-                               <Input id="lastName" value={editingUser.lastName} onChange={(e) => setEditingUser({...editingUser, lastName: e.target.value})} />
-                             </div>
-                          </div>
-                           <div>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <Label htmlFor="firstName">Prénom</Label>
+                                    <Input id="firstName" value={editingUser.firstName} onChange={(e) => setEditingUser({ ...editingUser, firstName: e.target.value })} />
+                                </div>
+                                <div>
+                                    <Label htmlFor="lastName">Nom</Label>
+                                    <Input id="lastName" value={editingUser.lastName} onChange={(e) => setEditingUser({ ...editingUser, lastName: e.target.value })} />
+                                </div>
+                            </div>
+                            <div>
                                 <Label htmlFor="email">Email</Label>
-                                <Input id="email" value={editingUser.email} onChange={(e) => setEditingUser({...editingUser, email: e.target.value})} />
-                           </div>
+                                <Input id="email" value={editingUser.email} onChange={(e) => setEditingUser({ ...editingUser, email: e.target.value })} />
+                            </div>
                             <div>
                                 <Label htmlFor="status">Statut</Label>
-                                 <Select value={editingUser.status} onValueChange={(value) => setEditingUser({...editingUser, status: value})}>
+                                <Select value={editingUser.status} onValueChange={(value) => setEditingUser({ ...editingUser, status: value })}>
                                     <SelectTrigger><SelectValue /></SelectTrigger>
                                     <SelectContent>
                                         <SelectItem value="Actif">Actif</SelectItem>
@@ -210,7 +211,7 @@ const AdminUsersPage = () => {
                                         <SelectItem value="Inactif">Inactif</SelectItem>
                                     </SelectContent>
                                 </Select>
-                           </div>
+                            </div>
                         </div>
                         <DialogFooter>
                             <Button variant="ghost" onClick={() => setEditingUser(null)}>Annuler</Button>
