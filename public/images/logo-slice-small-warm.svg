@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="240" height="240" aria-labelledby="title" role="img">
+  <title id="title">Ma part de soleil - petite tranche (warm)</title>
+  <defs>
+    <linearGradient id="warmGrad1" x1="0" x2="1">
+      <stop offset="0%" stop-color="#FFD166"/>
+      <stop offset="100%" stop-color="#FF4F00"/>
+    </linearGradient>
+    <filter id="shadow2" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#000" flood-opacity="0.14"/>
+    </filter>
+  </defs>
+
+  <!-- main sun -->
+  <circle cx="60" cy="60" r="38" fill="url(#warmGrad1)" />
+
+  <!-- small pulled slice -->
+  <g filter="url(#shadow2)">
+    <path d="M60 60 L88 46 A38 38 0 0 1 88 74 Z" fill="#FFF4E6" transform="translate(6,0)" />
+    <path d="M60 60 L88 46 A38 38 0 0 1 88 74 Z" fill="url(#warmGrad1)" transform="translate(6,0)" stroke="#E64A00" stroke-width="0.8"/>
+  </g>
+
+  <!-- cut accent -->
+  <path d="M88 46 A38 38 0 0 1 88 74" fill="none" stroke="#FFF7E6" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- subtle rays -->
+  <g stroke="#FF8E33" stroke-width="3" stroke-linecap="round" opacity="0.9">
+    <line x1="60" y1="8" x2="60" y2="22" />
+    <line x1="60" y1="98" x2="60" y2="112" />
+    <line x1="8" y1="60" x2="22" y2="60" />
+    <line x1="98" y1="60" x2="112" y2="60" />
+  </g>
+</svg>
