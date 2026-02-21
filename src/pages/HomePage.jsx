@@ -19,18 +19,16 @@ const HomePage = () => {
 
   // Carousel State
   const [currentPage, setCurrentPage] = useState(0);
-  const [direction, setDirection] = useState(0);
+  const [direction, setDirection] = useState(1);
   const totalPages = Math.ceil(allProjects.length / 3);
 
-  const nextPage = () => {
-    setDirection(1);
-    setCurrentPage((prev) => (prev + 1) % totalPages);
-  };
-
-  const prevPage = () => {
-    setDirection(-1);
-    setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages);
-  };
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setDirection(1);
+      setCurrentPage((prev) => (prev + 1) % totalPages);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [totalPages]);
 
   const calculateSavings = () => {
     const kwh = parseFloat(consumption);
@@ -252,38 +250,6 @@ const HomePage = () => {
                 ))}
               </motion.div>
             </div>
-
-            {/* Navigation Buttons */}
-            {allProjects.length > 3 && (
-              <>
-                <button
-                  onClick={prevPage}
-                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white border border-gray-200 p-3 rounded-full shadow-lg hover:bg-gray-50 transition-all z-20 group"
-                >
-                  <ChevronLeft className="h-6 w-6 text-gray-600 group-hover:text-orange-500" />
-                </button>
-                <button
-                  onClick={nextPage}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white border border-gray-200 p-3 rounded-full shadow-lg hover:bg-gray-50 transition-all z-20 group"
-                >
-                  <ChevronRight className="h-6 w-6 text-gray-600 group-hover:text-orange-500" />
-                </button>
-
-                {/* Dots Indicator */}
-                <div className="flex justify-center gap-2 mt-8">
-                  {Array.from({ length: Math.ceil(allProjects.length / 3) }).map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => {
-                        setDirection(i > currentPage ? 1 : -1);
-                        setCurrentPage(i);
-                      }}
-                      className={`h-2 rounded-full transition-all ${i === currentPage ? 'w-8 bg-orange-500' : 'w-2 bg-gray-300'}`}
-                    />
-                  ))}
-                </div>
-              </>
-            )}
           </div>
 
           <motion.div
@@ -303,14 +269,14 @@ const HomePage = () => {
       </section>
 
       {/* Call to Action Section */}
-      <section className="py-24 bg-white relative">
+      <section className="py-10 bg-white relative">
         <div className="absolute inset-x-0 top-0 h-full bg-gradient-to-r from-blue-700 via-blue-800 to-indigo-900 opacity-95 rounded-[3rem] shadow-2xl"
-          style={{ maxWidth: '85%', margin: '0 auto' }}>
+          style={{ maxWidth: '80%', margin: '0 auto' }}>
           <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 rounded-[3rem]"></div>
         </div>
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
           <motion.h2
-            className="text-4xl md:text-6xl font-black leading-tight mb-6 drop-shadow-xl"
+            className="text-3xl md:text-5xl font-black leading-tight mb-4 drop-shadow-xl"
             initial={{ y: -30, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
@@ -319,7 +285,7 @@ const HomePage = () => {
             Prêt à rejoindre l’aventure solaire ?
           </motion.h2>
           <motion.p
-            className="text-xl md:text-2xl mb-10 text-blue-50 font-medium opacity-90"
+            className="text-lg md:text-xl mb-6 text-blue-50 font-medium opacity-90"
             initial={{ y: 30, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}

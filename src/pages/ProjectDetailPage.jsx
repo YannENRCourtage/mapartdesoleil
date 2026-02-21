@@ -226,7 +226,7 @@ const ProjectDetailPage = () => {
             </div>
 
             {/* Bottom Row Right: Adhesion & Documents */}
-            <div className="lg:w-1/3 space-y-6">
+            <div className="lg:w-1/3 flex flex-col gap-6">
               <motion.div
                 className="bg-white p-8 rounded-3xl shadow-xl border border-gray-100"
                 initial={{ x: 30, opacity: 0 }}
