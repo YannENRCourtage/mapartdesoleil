@@ -8,7 +8,8 @@ import { Label } from '@/components/ui/label';
 import { ArrowDown, Zap, Users, Leaf } from 'lucide-react';
 import { allProjects } from '@/data/projects';
 import ProjectCard from '@/components/ProjectCard';
-import heroRoofImage from '@/assets/hero-roof.jpg'; // Import the image
+// Hero image from Unsplash
+const heroRoofImage = 'https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&q=80&w=2000';
 
 const HomePage = () => {
   const [consumption, setConsumption] = useState('');
@@ -101,15 +102,6 @@ const HomePage = () => {
           </motion.div>
         </div>
       </section>
-      {/* Vignoble Photo Section */}
-      <section className="w-full overflow-hidden" style={{ height: '480px' }}>
-        <img
-          src="/images/photo-vignoble.jpg"
-          alt="Installation panneaux solaires sur vignoble"
-          className="w-full h-full object-cover"
-        />
-      </section>
-
       {/* How It Works Section */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
