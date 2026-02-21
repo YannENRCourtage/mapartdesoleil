@@ -119,22 +119,37 @@ const ProjectDetailPage = () => {
         <meta name="description" content={project.description} />
       </Helmet>
 
-      <section className="relative py-16 bg-gray-50">
+      <section className="relative py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.img
-            src={project.imageUrl || projectPlaceholder}
-            alt={`Image du projet ${project.name}`}
-            className="w-full h-[450px] object-cover rounded-2xl shadow-2xl mb-12"
-            initial={{ y: -50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, ease: [0.6, 0.01, -0.05, 0.9] }}
-          />
 
-          <div className="flex flex-col lg:flex-row gap-12">
-            <div className="lg:w-2/3 space-y-8">
+          {/* Tariff Header Inset */}
+          <motion.div
+            className="mb-8 p-6 bg-white border-2 border-green-500 rounded-xl shadow-sm text-center"
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <p className="text-gray-500 text-sm uppercase tracking-wider font-semibold mb-1">Tarif Consommateur</p>
+            <p className="text-4xl font-black text-black">{project.consumerTariff}€ <span className="text-xl font-normal text-gray-600">/kWh</span></p>
+          </motion.div>
+
+          <div className="flex flex-col lg:flex-row gap-10 items-start">
+            {/* Left Column: Image and Title */}
+            <div className="lg:w-2/3">
+              <div className="bg-white p-3 rounded-2xl shadow-xl border border-gray-200 mb-8">
+                <motion.img
+                  src={project.imageUrl || projectPlaceholder}
+                  alt={`Image du projet ${project.name}`}
+                  className="w-full h-[400px] object-cover rounded-xl"
+                  initial={{ scale: 0.95, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.6 }}
+                />
+              </div>
+
               <motion.h1
-                className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight"
-                initial={{ x: -50, opacity: 0 }}
+                className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-8"
+                initial={{ x: -30, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.2, duration: 0.6 }}
               >
@@ -142,57 +157,70 @@ const ProjectDetailPage = () => {
               </motion.h1>
 
               <motion.div
-                className="bg-white p-8 rounded-xl shadow-lg"
+                className="bg-white p-8 rounded-xl shadow-lg border border-gray-100"
                 initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.3, duration: 0.6 }}
               >
                 <h2 className="text-2xl font-bold text-gray-800 mb-4">À propos du projet</h2>
-                <p className="text-gray-700 mb-4 leading-relaxed">{project.description}</p>
+                <p className="text-gray-700 leading-relaxed text-lg">{project.description}</p>
+              </motion.div>
+            </div>
+
+            {/* Right Column: 4-item Grid */}
+            <div className="lg:w-1/3 grid grid-cols-2 gap-4">
+              <motion.div
+                className="bg-white p-6 rounded-xl shadow-md border border-gray-100 flex flex-col justify-center items-center text-center"
+                initial={{ x: 30, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: 0.4 }}
+              >
+                <p className="text-xs text-gray-500 uppercase font-bold mb-2">Localisation</p>
+                <p className="text-gray-900 font-bold leading-tight">{project.city || project.location.split('(')[0].trim()}<br /><span className="text-gray-500 text-sm">{project.postalCode || project.location.match(/\d{5}/)?.[0]}</span></p>
               </motion.div>
 
               <motion.div
-                className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center"
-                initial={{ y: 30, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.4, duration: 0.6 }}
+                className="bg-white p-6 rounded-xl shadow-md border border-gray-100 flex flex-col justify-center items-center text-center"
+                initial={{ x: 30, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: 0.5 }}
               >
-                <div className="bg-white p-4 rounded-xl shadow-md">
-                  <p className="text-sm text-gray-500">Puissance installée</p>
-                  <p className="text-xl font-bold text-gray-800">{project.power} kWc</p>
-                </div>
-                <div className="bg-white p-4 rounded-xl shadow-md">
-                  <p className="text-sm text-gray-500">Production annuelle</p>
-                  <p className="text-xl font-bold text-gray-800">{project.annualProduction} MWh/an</p>
-                </div>
-                {project.participants > 0 && (
-                  <div className="bg-white p-4 rounded-xl shadow-md">
-                    <p className="text-sm text-gray-500">Participants</p>
-                    <p className="text-xl font-bold text-gray-800">{project.participants} / {project.maxParticipants}</p>
-                  </div>
-                )}
-                {project.eligibilityDistance > 0 && (
-                  <div className="bg-white p-4 rounded-xl shadow-md">
-                    <p className="text-sm text-gray-500">Éligibilité</p>
-                    <p className="text-xl font-bold text-gray-800">{project.eligibilityDistance} km</p>
-                  </div>
-                )}
+                <p className="text-xs text-gray-500 uppercase font-bold mb-2">Puissance</p>
+                <p className="text-2xl font-black text-black">{project.power} <span className="text-sm font-normal text-gray-500">kWc</span></p>
               </motion.div>
 
+              <motion.div
+                className="bg-white p-6 rounded-xl shadow-md border border-gray-100 flex flex-col justify-center items-center text-center"
+                initial={{ x: 30, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: 0.6 }}
+              >
+                <p className="text-xs text-gray-500 uppercase font-bold mb-2">Surface</p>
+                <p className="text-2xl font-black text-black">{project.surface || '—'} <span className="text-sm font-normal text-gray-500">m²</span></p>
+              </motion.div>
+
+              <motion.div
+                className="bg-white p-6 rounded-xl shadow-md border border-gray-100 flex flex-col justify-center items-center text-center"
+                initial={{ x: 30, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: 0.7 }}
+              >
+                <p className="text-xs text-gray-500 uppercase font-bold mb-2">Production</p>
+                <p className="text-2xl font-black text-black">{project.annualProduction} <span className="text-sm font-normal text-gray-500">MWh/an</span></p>
+              </motion.div>
+
+              {/* Map/Zone (Span 2) */}
               {(project.latitude && project.longitude && project.eligibilityDistance > 0) && (
                 <motion.div
-                  className="bg-white p-8 rounded-xl shadow-lg h-[400px] overflow-hidden"
+                  className="col-span-2 bg-white p-6 rounded-xl shadow-md border border-gray-100 h-[300px] overflow-hidden"
                   initial={{ y: 30, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.5, duration: 0.6 }}
+                  transition={{ delay: 0.8 }}
                 >
-                  <h2 className="text-2xl font-bold text-gray-800 mb-4">Zone d'éligibilité</h2>
-                  <MapContainer center={[project.latitude, project.longitude]} zoom={13} className="h-full w-full rounded-lg">
-                    <MapUpdater center={[project.latitude, project.longitude]} zoom={11} />
-                    <TileLayer
-                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    />
+                  <h3 className="text-lg font-bold text-gray-800 mb-3">Zone d'éligibilité ({project.eligibilityDistance} km)</h3>
+                  <MapContainer center={[project.latitude, project.longitude]} zoom={11} className="h-full w-full rounded-lg">
+                    <MapUpdater center={[project.latitude, project.longitude]} zoom={10} />
+                    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                     <Marker position={[project.latitude, project.longitude]} icon={ProjectIcon} title=""></Marker>
                     <Circle
                       center={[project.latitude, project.longitude]}
@@ -205,72 +233,74 @@ const ProjectDetailPage = () => {
                   </MapContainer>
                 </motion.div>
               )}
-
-            </div>
-
-            <div className="lg:w-1/3 space-y-6 lg:sticky top-24 self-start">
-              {project.consumerTariff > 0 && (
-                <motion.div
-                  className="bg-gradient-to-br from-yellow-400 to-orange-500 p-6 rounded-xl shadow-lg text-white"
-                  initial={{ x: 50, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 0.6, duration: 0.6 }}
-                >
-                  <h2 className="text-xl font-bold mb-2">Tarif Consommateur</h2>
-                  <p className="text-4xl font-extrabold">{project.consumerTariff}€ <span className="text-2xl font-normal">/kWh</span></p>
-                  <p className="text-sm opacity-90 mt-2">Un tarif juste et stable pour une énergie locale.</p>
-                </motion.div>
-              )}
-
-              <motion.div
-                className="bg-white p-6 rounded-xl shadow-lg"
-                initial={{ x: 50, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.7, duration: 0.6 }}
-              >
-                <h2 className="text-xl font-bold text-gray-800 mb-4">Prêt à nous rejoindre ?</h2>
-                <Button
-                  onClick={handleAdhesionClick}
-                  className="w-full bg-green-600 hover:bg-green-700 text-white text-lg py-3 rounded-md shadow-md transform hover:scale-105 transition-transform duration-300 mb-4"
-                >
-                  Adhérer au projet
-                </Button>
-                <Button
-                  onClick={handleShareClick}
-                  variant="outline"
-                  className="w-full text-gray-700 border-gray-300 hover:bg-gray-100 py-3 rounded-md shadow-sm"
-                >
-                  <Share2 className="mr-2 h-4 w-4" />
-                  Partager ce projet
-                </Button>
-              </motion.div>
-
-              <motion.div
-                className="bg-white p-6 rounded-xl shadow-lg"
-                initial={{ x: 50, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.8, duration: 0.6 }}
-              >
-                <h2 className="text-xl font-bold text-gray-800 mb-4">Documents du projet</h2>
-                <ul className="space-y-3">
-                  {documents.map((doc) => (
-                    <li key={doc.id}>
-                      <a href={doc.url} target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline flex items-center justify-between group">
-                        <span className="flex items-center">
-                          <FileText className="h-5 w-5 mr-3 text-gray-400" />
-                          {doc.name}
-                        </span>
-                        <Download className="h-5 w-5 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" />
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
             </div>
           </div>
         </div>
       </section>
-    </motion.div>
+
+      <div className="lg:w-1/3 space-y-6 lg:sticky top-24 self-start">
+        {project.consumerTariff > 0 && (
+          <motion.div
+            className="bg-gradient-to-br from-yellow-400 to-orange-500 p-6 rounded-xl shadow-lg text-white"
+            initial={{ x: 50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.6, duration: 0.6 }}
+          >
+            <h2 className="text-xl font-bold mb-2">Tarif Consommateur</h2>
+            <p className="text-4xl font-extrabold">{project.consumerTariff}€ <span className="text-2xl font-normal">/kWh</span></p>
+            <p className="text-sm opacity-90 mt-2">Un tarif juste et stable pour une énergie locale.</p>
+          </motion.div>
+        )}
+
+        <motion.div
+          className="bg-white p-6 rounded-xl shadow-lg"
+          initial={{ x: 50, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.7, duration: 0.6 }}
+        >
+          <h2 className="text-xl font-bold text-gray-800 mb-4">Prêt à nous rejoindre ?</h2>
+          <Button
+            onClick={handleAdhesionClick}
+            className="w-full bg-green-600 hover:bg-green-700 text-white text-lg py-3 rounded-md shadow-md transform hover:scale-105 transition-transform duration-300 mb-4"
+          >
+            Adhérer au projet
+          </Button>
+          <Button
+            onClick={handleShareClick}
+            variant="outline"
+            className="w-full text-gray-700 border-gray-300 hover:bg-gray-100 py-3 rounded-md shadow-sm"
+          >
+            <Share2 className="mr-2 h-4 w-4" />
+            Partager ce projet
+          </Button>
+        </motion.div>
+
+        <motion.div
+          className="bg-white p-6 rounded-xl shadow-lg"
+          initial={{ x: 50, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.8, duration: 0.6 }}
+        >
+          <h2 className="text-xl font-bold text-gray-800 mb-4">Documents du projet</h2>
+          <ul className="space-y-3">
+            {documents.map((doc) => (
+              <li key={doc.id}>
+                <a href={doc.url} target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:underline flex items-center justify-between group">
+                  <span className="flex items-center">
+                    <FileText className="h-5 w-5 mr-3 text-gray-400" />
+                    {doc.name}
+                  </span>
+                  <Download className="h-5 w-5 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+      </div>
+    </div>
+        </div >
+      </section >
+    </motion.div >
   );
 };
 
