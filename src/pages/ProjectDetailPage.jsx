@@ -122,7 +122,7 @@ const ProjectDetailPage = () => {
       <section className="relative py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-          <div className="flex flex-col lg:flex-row gap-8 items-start mb-12">
+          <div className="flex flex-col lg:flex-row gap-8 items-start mb-6">
             {/* Left Column: Framed Image */}
             <div className="w-full lg:w-2/3">
               <div className="bg-white p-3 rounded-2xl shadow-xl border border-gray-200">
@@ -197,11 +197,11 @@ const ProjectDetailPage = () => {
             </div>
           </div>
 
-          <div className="flex flex-col lg:flex-row gap-12">
+          <div className="flex flex-col lg:flex-row gap-8">
             {/* Bottom Row Left: Title & Description */}
             <div className="lg:w-2/3">
               <motion.h1
-                className="text-4xl md:text-5xl font-black text-gray-900 leading-tight mb-8"
+                className="text-4xl md:text-5xl font-black text-gray-900 leading-tight mb-4"
                 initial={{ x: -30, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.2, duration: 0.6 }}

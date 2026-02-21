@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { ArrowDown, Zap, Users, Leaf } from 'lucide-react';
+import { ArrowDown, Zap, Users, Leaf, ChevronLeft, ChevronRight } from 'lucide-react';
 import { allProjects } from '@/data/projects';
 import ProjectCard from '@/components/ProjectCard';
+
 // Hero image from Unsplash
 const heroRoofImage = 'https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&q=80&w=2000';
 
@@ -15,26 +16,25 @@ const HomePage = () => {
   const [consumption, setConsumption] = useState('');
   const [savings, setSavings] = useState(0);
   const [showSavings, setShowSavings] = useState(false);
-  const [randomProjects, setRandomProjects] = useState([]);
 
+  // Carousel State
+  const [currentPage, setCurrentPage] = useState(0);
+  const [direction, setDirection] = useState(0);
+  const totalPages = Math.ceil(allProjects.length / 3);
 
-  useEffect(() => {
-    try {
-      const storedProjects = localStorage.getItem('projects_data_v2');
-      const projectsToUse = storedProjects ? JSON.parse(storedProjects) : allProjects;
-      const shuffled = [...projectsToUse].sort(() => 0.5 - Math.random());
-      setRandomProjects(shuffled.slice(0, 3));
-    } catch (e) {
-      console.error("Failed to load projects from localStorage:", e);
-      const shuffled = [...allProjects].sort(() => 0.5 - Math.random());
-      setRandomProjects(shuffled.slice(0, 3));
-    }
-  }, []);
+  const nextPage = () => {
+    setDirection(1);
+    setCurrentPage((prev) => (prev + 1) % totalPages);
+  };
+
+  const prevPage = () => {
+    setDirection(-1);
+    setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages);
+  };
 
   const calculateSavings = () => {
     const kwh = parseFloat(consumption);
     if (!isNaN(kwh) && kwh > 0) {
-      // Example calculation: 0.05€/kWh saving
       setSavings((kwh * 0.05).toFixed(2));
       setShowSavings(true);
     } else {
@@ -45,7 +45,7 @@ const HomePage = () => {
 
   const handleInputChange = (e) => {
     setConsumption(e.target.value);
-    setShowSavings(false); // Hide savings when input changes
+    setShowSavings(false);
   };
 
   return (
@@ -102,6 +102,7 @@ const HomePage = () => {
           </motion.div>
         </div>
       </section>
+
       {/* How It Works Section */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -223,70 +224,8 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Testimonials/Social Proof Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.h2
-            className="text-3xl md:text-4xl font-bold text-gray-800 mb-4"
-            initial={{ y: -30, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            Ils économisent déjà avec nous.
-          </motion.h2>
-          <p className="text-lg text-gray-700 mb-10 max-w-2xl mx-auto">
-            Rejoignez une communauté qui fait la différence pour la planète et pour son portefeuille.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <motion.div
-              className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center"
-              initial={{ x: -50, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              <div className="bg-green-200 text-green-700 rounded-full h-16 w-16 flex items-center justify-center text-3xl font-bold mb-4">€</div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Famille (4 personnes)</h3>
-              <p className="text-2xl font-bold text-[#FF7F00] mb-2">250 €/an</p>
-              <p className="text-gray-600 text-center text-sm">
-                En moyenne, sur une consommation annuelle de 4500 kWh, en profitant d'un prix du kWh inférieur au tarif réglementé.
-              </p>
-            </motion.div>
-            <motion.div
-              className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center"
-              initial={{ y: 50, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <div className="bg-green-200 text-green-700 rounded-full h-16 w-16 flex items-center justify-center text-3xl font-bold mb-4">€</div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Boulangerie</h3>
-              <p className="text-2xl font-bold text-[#FF7F00] mb-2">1200 €/an</p>
-              <p className="text-gray-600 text-center text-sm">
-                Pour une consommation de 15000 kWh/an, l'autoconsommation collective permet de stabiliser une partie du coût de l'énergie.
-              </p>
-            </motion.div>
-            <motion.div
-              className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center"
-              initial={{ x: 50, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              <div className="bg-green-200 text-green-700 rounded-full h-16 w-16 flex items-center justify-center text-3xl font-bold mb-4">€</div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Petite entreprise</h3>
-              <p className="text-2xl font-bold text-[#FF7F00] mb-2">1800 €/an</p>
-              <p className="text-gray-600 text-center text-sm">
-                Sur une base de 25000 kWh/an. Un avantage compétitif et un engagement RSE concret pour l'entreprise.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
       {/* Featured Projects Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.h2
             className="text-3xl md:text-4xl font-bold text-gray-800 mb-12"
@@ -297,11 +236,56 @@ const HomePage = () => {
           >
             Nos projets phares
           </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {randomProjects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
-            ))}
+
+          <div className="relative group">
+            <div className="overflow-hidden px-4 py-8">
+              <motion.div
+                key={currentPage}
+                initial={{ x: direction > 0 ? 1000 : -1000, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: direction > 0 ? -1000 : 1000, opacity: 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                className="grid grid-cols-1 md:grid-cols-3 gap-8"
+              >
+                {allProjects.slice(currentPage * 3, (currentPage * 3) + 3).map((project) => (
+                  <ProjectCard key={project.id} project={project} />
+                ))}
+              </motion.div>
+            </div>
+
+            {/* Navigation Buttons */}
+            {allProjects.length > 3 && (
+              <>
+                <button
+                  onClick={prevPage}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white border border-gray-200 p-3 rounded-full shadow-lg hover:bg-gray-50 transition-all z-20 group"
+                >
+                  <ChevronLeft className="h-6 w-6 text-gray-600 group-hover:text-orange-500" />
+                </button>
+                <button
+                  onClick={nextPage}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white border border-gray-200 p-3 rounded-full shadow-lg hover:bg-gray-50 transition-all z-20 group"
+                >
+                  <ChevronRight className="h-6 w-6 text-gray-600 group-hover:text-orange-500" />
+                </button>
+
+                {/* Dots Indicator */}
+                <div className="flex justify-center gap-2 mt-8">
+                  {Array.from({ length: Math.ceil(allProjects.length / 3) }).map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => {
+                        setDirection(i > currentPage ? 1 : -1);
+                        setCurrentPage(i);
+                      }}
+                      className={`h-2 rounded-full transition-all ${i === currentPage ? 'w-8 bg-orange-500' : 'w-2 bg-gray-300'}`}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
           </div>
+
           <motion.div
             className="mt-12"
             initial={{ opacity: 0 }}
@@ -319,11 +303,14 @@ const HomePage = () => {
       </section>
 
       {/* Call to Action Section */}
-      <section className="py-16 bg-white relative">
-        <div className="absolute inset-x-0 top-0 h-full bg-gradient-to-r from-orange-400 to-yellow-400 opacity-80" style={{ maxWidth: '75%', margin: '0 auto' }}></div>
+      <section className="py-24 bg-white relative">
+        <div className="absolute inset-x-0 top-0 h-full bg-gradient-to-r from-blue-700 via-blue-800 to-indigo-900 opacity-95 rounded-[3rem] shadow-2xl"
+          style={{ maxWidth: '85%', margin: '0 auto' }}>
+          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 rounded-[3rem]"></div>
+        </div>
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
           <motion.h2
-            className="text-3xl md:text-5xl font-extrabold leading-tight mb-4 drop-shadow-lg"
+            className="text-4xl md:text-6xl font-black leading-tight mb-6 drop-shadow-xl"
             initial={{ y: -30, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
@@ -332,7 +319,7 @@ const HomePage = () => {
             Prêt à rejoindre l’aventure solaire ?
           </motion.h2>
           <motion.p
-            className="text-lg md:text-xl mb-8 drop-shadow-md"
+            className="text-xl md:text-2xl mb-10 text-blue-50 font-medium opacity-90"
             initial={{ y: 30, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
@@ -347,7 +334,7 @@ const HomePage = () => {
             transition={{ delay: 0.4, duration: 0.6 }}
           >
             <Link to="/connexion">
-              <Button size="lg" className="bg-white text-[#FF7F00] hover:bg-gray-100 text-lg px-8 py-3 rounded-full shadow-lg transform hover:scale-105 transition-transform duration-300">
+              <Button size="lg" className="bg-white text-blue-700 hover:bg-blue-50 text-xl px-12 py-4 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300 font-bold border-4 border-transparent hover:border-blue-400">
                 Je m'inscris !
               </Button>
             </Link>
