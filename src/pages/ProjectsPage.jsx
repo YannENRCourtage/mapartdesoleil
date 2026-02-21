@@ -17,8 +17,8 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
 });
 
-const SunIcon = new L.Icon({
-  iconUrl: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZjdmMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1zdW4iPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjQiLz48cGF0aCBkPSJNMTIgMnYyIi8+PHBhdGggZD0iTTEyIDIwdi0yIi8+PHBhdGggZD0iTTQgMTJoLTiiLz48cGF0aCBkPSJNMjAgMTJoMiIvPjxwYXRoIGQ9Ik02LjM0IDYuMzRsLTEuNDItMS40MiIvPjxwYXRoIGQ9Ik0xOC4wNiAxOC4wNmwxLjQyIDEuNDIiLz48cGF0aCBkPSJNNi4zNCAxNy42NmwtMS40MiAxLjQyIi8+PHBhdGggZD0iTTE4LjA2IDYuMzRsMS40Mi0xLjQyIi8+PC9zdmc+',
+const ProjectIcon = new L.Icon({
+  iconUrl: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMDA2NkNDIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgY2xhc3M9Imx1Y2lkZSBsdWNpZGUtbWFwLXBpbiI+PHBhdGggZD0iTTIwIDEwYzAgNC45OTMtNS41MyAxMC4zNS03LjUgMTIuMDU3YS40NTIuNDUyIDAgMCAxLS42IDBDOS41MyAyMC4zNSA0IDE0Ljk5MyA0IDEwYTYgNiAwIDAgMSAxMiAwWiIvPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTAiIHI9IjMiLz48L3N2Zz4=',
   iconSize: [32, 32],
   iconAnchor: [16, 32],
   popupAnchor: [0, -32],
@@ -71,7 +71,8 @@ const ProjectsPage = () => {
       </Helmet>
 
 
-      <section className="py-16 bg-gradient-to-r from-yellow-400 to-[#FF7F00] text-white text-center">
+      <section className="py-16 bg-gradient-to-r from-[#004A99] to-[#0066CC] text-white text-center relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] animate-pulse"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.h1
             className="text-4xl md:text-5xl font-extrabold leading-tight mb-4 drop-shadow-lg"
@@ -140,7 +141,7 @@ const ProjectsPage = () => {
                 {projects.map((project) => {
                   if (!project.latitude || !project.longitude) return null;
                   return (
-                    <Marker key={project.id} position={[project.latitude, project.longitude]} icon={SunIcon}>
+                    <Marker key={project.id} position={[project.latitude, project.longitude]} icon={ProjectIcon}>
                       <Circle
                         center={[project.latitude, project.longitude]}
                         radius={(project.eligibilityDistance || 0) * 1000} // Convert km to meters
