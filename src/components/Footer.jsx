@@ -1,27 +1,30 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import SimpleLogo from '@/components/SimpleLogo';
+import { MapPin, Mail } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const Footer = () => {
   return (
     <motion.footer
-      className="bg-gray-800 text-white py-8"
+      className="bg-gray-800 text-white py-12"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 0.5 }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="space-y-4">
-            <SimpleLogo className="text-white" />
-            <p className="text-gray-400 text-sm">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div className="space-y-6">
+            <img src="/images/logo-enr-courtage.png" alt="ENR COURTAGE" className="h-12 w-auto" />
+            <p className="text-gray-400 text-sm leading-relaxed">
               Ma part de soleil est une initiative citoyenne pour accélérer la transition énergétique locale.
+              <br />
+              <span className="mt-2 block">Ma part de soleil fait partie du groupe <strong>ENR COURTAGE</strong>.</span>
             </p>
           </div>
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-white">Liens rapides</h3>
-            <ul className="space-y-2">
+          <div className="space-y-6">
+            <h3 className="text-lg font-semibold text-white tracking-wide">Liens rapides</h3>
+            <ul className="space-y-3">
               <li>
                 <Link to="/" className="text-gray-400 hover:text-[#FF7F00] transition-colors duration-300 text-sm">
                   Accueil
@@ -44,24 +47,29 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-white">Contactez-nous</h3>
-            <p className="text-gray-400 text-sm">
-              Email: contact@mapartdesoleil.fr
-            </p>
-            <p className="text-gray-400 text-sm">
-              Téléphone: +33 1 23 45 67 89
-            </p>
-            <div className="flex space-x-4 mt-4">
-              <a href="#" className="text-gray-400 hover:text-[#FF7F00] transition-colors duration-300">
-                <img alt="Facebook icon" class="h-5 w-5" src="https://images.unsplash.com/photo-1601141586963-f213d2575b7f" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-[#FF7F00] transition-colors duration-300">
-                <img alt="Twitter icon" class="h-5 w-5" src="https://images.unsplash.com/photo-1691431118988-8e332ca2bd28" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-[#FF7F00] transition-colors duration-300">
-                <img alt="LinkedIn icon" class="h-5 w-5" src="https://images.unsplash.com/photo-1592181572975-1d0d8880d175" />
-              </a>
+          <div className="space-y-6">
+            <h3 className="text-lg font-semibold text-white tracking-wide">Contact</h3>
+            <div className="space-y-4">
+              <div className="flex items-start text-gray-400 space-x-3">
+                <MapPin className="h-5 w-5 text-[#FF7F00] shrink-0 mt-0.5" />
+                <p className="text-sm">
+                  7 rue Gutenberg<br />
+                  33700 MÉRIGNAC
+                </p>
+              </div>
+              <div className="flex items-center text-gray-400 space-x-3">
+                <Mail className="h-5 w-5 text-[#FF7F00] shrink-0" />
+                <a href="mailto:contact@enr-courtage.fr" className="text-sm hover:text-[#FF7F00] transition-colors underline decoration-[#FF7F00]/30 underline-offset-4">
+                  contact@enr-courtage.fr
+                </a>
+              </div>
+              <div className="pt-2">
+                <Link to="/contact">
+                  <Button variant="outline" className="bg-[#EBF5FF] text-[#0066CC] border-transparent hover:bg-[#D6E9FF] hover:text-[#0052A3] transition-all px-8">
+                    Nous contacter
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
