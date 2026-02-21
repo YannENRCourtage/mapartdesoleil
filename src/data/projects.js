@@ -13,7 +13,7 @@ const allProjects = [
     consumerTariff: 0,
     latitude: 45.75,
     longitude: -0.63,
-    imageUrl: '/images/projet-charente-maritime-map.png',
+    imageUrl: '/images/projet-charente-maritime.jpg',
   },
   {
     id: 'project-dordogne-1',
