@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import ProjectCard from '@/components/ProjectCard';
 import { allProjects as initialProjects } from '@/data/projects';
-import { MapContainer, TileLayer, Marker, Circle, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Circle, useMap, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { useToast } from '@/components/ui/use-toast';
@@ -148,13 +148,13 @@ const ProjectsPage = () => {
                         fillOpacity={0.2}
                         weight={2}
                       />
-                      <L.Popup>
+                      <Popup>
                         <Link to={`/projet/${project.id}`} className="font-bold text-[#FF7F00] hover:underline">
                           {project.name}
                         </Link>
                         <br />
                         {project.location}
-                      </L.Popup>
+                      </Popup>
                     </Marker>
                   );
                 })}
