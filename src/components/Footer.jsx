@@ -13,14 +13,6 @@ const Footer = () => {
       transition={{ duration: 0.5, delay: 0.5 }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.h1
-          className="text-4xl md:text-5xl font-extrabold leading-tight mb-4 text-[#0066CC]"
-          initial={{ y: -50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-        >
-          L'autoconsommation collective,<br />c'est simple.
-        </motion.h1>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           <div className="space-y-6">
             <img src="/images/logo-enr-courtage.png" alt="ENR COURTAGE" className="h-12 w-auto" />
