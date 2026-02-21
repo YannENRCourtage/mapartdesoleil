@@ -22,14 +22,14 @@ const AccPage = () => {
       <section className="py-16 bg-white text-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.h1
-            className="text-4xl md:text-5xl font-extrabold leading-tight mb-4 text-[#FF4500]"
+            className="text-4xl md:text-5xl font-extrabold leading-tight mb-4 text-[#0066CC]"
             initial={{ y: -50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.6 }}
           >
-            L'autoconsommation collective, c'est simple.
+            L'autoconsommation collective,<br />c'est simple.
           </motion.h1>
-           <motion.p
+          <motion.p
             className="text-lg md:text-xl mb-8 max-w-3xl mx-auto text-gray-700"
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -40,7 +40,7 @@ const AccPage = () => {
           </motion.p>
         </div>
       </section>
-       <div className="h-1 bg-gradient-to-r from-orange-300 via-yellow-400 to-orange-300 w-full"></div>
+      <div className="h-1 bg-gradient-to-r from-orange-300 via-yellow-400 to-orange-300 w-full"></div>
 
 
       {/* Principles Section */}
@@ -113,21 +113,21 @@ const AccPage = () => {
           </motion.h2>
           <div className="relative flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 md:space-x-8">
             <div className="hidden md:block absolute top-1/2 left-0 w-full -translate-y-1/2 z-0">
-                <svg width="100%" height="2">
-                    <motion.line
-                        x1="15%"
-                        y1="1"
-                        x2="85%"
-                        y2="1"
-                        stroke="#d1d5db"
-                        strokeWidth="2"
-                        strokeDasharray="5 5"
-                        initial={{ pathLength: 0 }}
-                        whileInView={{ pathLength: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 2, ease: "easeInOut" }}
-                    />
-                </svg>
+              <svg width="100%" height="2">
+                <motion.line
+                  x1="15%"
+                  y1="1"
+                  x2="85%"
+                  y2="1"
+                  stroke="#d1d5db"
+                  strokeWidth="2"
+                  strokeDasharray="5 5"
+                  initial={{ pathLength: 0 }}
+                  whileInView={{ pathLength: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 2, ease: "easeInOut" }}
+                />
+              </svg>
             </div>
 
             <motion.div

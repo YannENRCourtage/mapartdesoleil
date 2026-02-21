@@ -13,6 +13,14 @@ const Footer = () => {
       transition={{ duration: 0.5, delay: 0.5 }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.h1
+          className="text-4xl md:text-5xl font-extrabold leading-tight mb-4 text-[#0066CC]"
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+        >
+          L'autoconsommation collective,<br />c'est simple.
+        </motion.h1>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           <div className="space-y-6">
             <img src="/images/logo-enr-courtage.png" alt="ENR COURTAGE" className="h-12 w-auto" />
@@ -64,7 +72,12 @@ const Footer = () => {
                 </a>
               </div>
               <div className="pt-2">
-                <Link to="/contact">
+                <Link to="/#contact-section" onClick={(e) => {
+                  if (window.location.pathname === '/') {
+                    e.preventDefault();
+                    document.getElementById('contact-section')?.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}>
                   <Button variant="outline" className="bg-[#EBF5FF] text-[#0066CC] border-transparent hover:bg-[#D6E9FF] hover:text-[#0052A3] transition-all px-8">
                     Nous contacter
                   </Button>
@@ -74,10 +87,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-500 text-xs">
-          <p>&copy; {new Date().getFullYear()} Ma part de soleil. Tous droits réservés.</p>
-          <p className="mt-2">
-            <Link to="/mentions-legales" className="hover:text-[#FF7F00] transition-colors duration-300">Mentions légales</Link> | <Link to="/politique-de-confidentialite" className="hover:text-[#FF7F00] transition-colors duration-300">Politique de confidentialité</Link>
-          </p>
+          <p>&copy; 2025 Ma part de soleil. Tous droits réservés.</p>
         </div>
       </div>
     </motion.footer>
