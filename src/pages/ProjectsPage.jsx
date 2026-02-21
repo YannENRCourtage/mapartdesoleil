@@ -70,7 +70,6 @@ const ProjectsPage = () => {
         <meta name="description" content="Découvrez tous les projets d'autoconsommation collective de Ma part de soleil et rejoignez la transition énergétique." />
       </Helmet>
 
-      <ScrollToTop />
 
       <section className="py-16 bg-gradient-to-r from-yellow-400 to-[#FF7F00] text-white text-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
