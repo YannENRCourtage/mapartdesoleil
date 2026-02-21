@@ -32,6 +32,20 @@ const MapUpdater = ({ center, zoom }) => {
   return null;
 };
 
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }, [pathname]);
+
+  return null;
+};
+
 const ProjectsPage = () => {
   const [projects, setProjects] = useState([]);
   const [mapCenter, setMapCenter] = useState([46.603354, 1.888334]); // Center of France
@@ -69,6 +83,8 @@ const ProjectsPage = () => {
         <title>Nos Projets - Ma part de soleil</title>
         <meta name="description" content="Découvrez tous les projets d'autoconsommation collective de Ma part de soleil et rejoignez la transition énergétique." />
       </Helmet>
+
+      <ScrollToTop />
 
       <section className="py-16 bg-gradient-to-r from-yellow-400 to-[#FF7F00] text-white text-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -133,8 +149,8 @@ const ProjectsPage = () => {
               <MapContainer center={mapCenter} zoom={mapZoom} className="h-full w-full">
                 <MapUpdater center={mapCenter} zoom={mapZoom} />
                 <TileLayer
-                  url="https://wxs.ign.fr/choisirgeoportail/geoportail/wmts?SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&FORMAT=image/jpeg&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}"
-                  attribution='&copy; <a href="https://www.ign.fr/">IGN</a> Geoportail | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
+                  attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
                 />
                 {projects.map((project) => {
                   if (!project.latitude || !project.longitude) return null;

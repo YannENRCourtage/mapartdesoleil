@@ -190,8 +190,8 @@ const ProjectDetailPage = () => {
                   <MapContainer center={[project.latitude, project.longitude]} zoom={13} className="h-full w-full rounded-lg">
                     <MapUpdater center={[project.latitude, project.longitude]} zoom={11} />
                     <TileLayer
-                      url="https://wxs.ign.fr/choisirgeoportail/geoportail/wmts?SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&FORMAT=image/jpeg&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}"
-                      attribution='&copy; <a href="https://www.ign.fr/">IGN</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     />
                     <Marker position={[project.latitude, project.longitude]} icon={SunIcon}></Marker>
                     <Circle
