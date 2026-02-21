@@ -122,19 +122,8 @@ const ProjectDetailPage = () => {
       <section className="relative py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-          {/* Tariff Header Inset */}
-          <motion.div
-            className="mb-12 p-8 bg-white border-2 border-green-500 rounded-2xl shadow-sm text-center"
-            initial={{ y: -20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            <p className="text-gray-500 text-sm uppercase tracking-wider font-semibold mb-1">Tarif Consommateur</p>
-            <p className="text-4xl md:text-5xl font-black text-black">{project.consumerTariff}€ <span className="text-xl md:text-2xl font-normal text-gray-600">/kWh</span></p>
-          </motion.div>
-
           <div className="flex flex-col lg:flex-row gap-8 items-start mb-12">
-            {/* Top Row Left: Framed Image */}
+            {/* Left Column: Framed Image */}
             <div className="w-full lg:w-2/3">
               <div className="bg-white p-3 rounded-2xl shadow-xl border border-gray-200">
                 <motion.img
@@ -148,8 +137,19 @@ const ProjectDetailPage = () => {
               </div>
             </div>
 
-            {/* Top Row Right: 4-item Detail Grid */}
-            <div className="w-full lg:w-1/3 grid grid-cols-2 gap-4 h-full">
+            {/* Right Column: Integrated Grid with Tariff at top */}
+            <div className="w-full lg:w-1/3 grid grid-cols-2 gap-4">
+              {/* Tariff Inset - Top of the grid, span 2 */}
+              <motion.div
+                className="col-span-2 p-6 bg-white border-2 border-green-500 rounded-2xl shadow-sm text-center"
+                initial={{ y: -20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                <p className="text-gray-500 text-[10px] uppercase font-black mb-1 tracking-widest">Tarif Consommateur</p>
+                <p className="text-3xl font-black text-black">{project.consumerTariff}€ <span className="text-lg font-bold text-gray-400">/kWh</span></p>
+              </motion.div>
+
               {[
                 { label: 'Localisation', value: `${project.city || ''}`, sub: project.postalCode },
                 { label: 'Puissance', value: `${project.power}`, unit: 'kWc' },
@@ -161,7 +161,7 @@ const ProjectDetailPage = () => {
                   className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 flex flex-col justify-center items-center text-center hover:border-orange-200 transition-colors"
                   initial={{ x: 30, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 0.3 + index * 0.1 }}
+                  transition={{ delay: 0.4 + index * 0.1 }}
                 >
                   <p className="text-[10px] text-gray-400 uppercase font-black mb-2 tracking-widest">{item.label}</p>
                   <p className="text-xl font-black text-gray-900 leading-tight">
@@ -177,7 +177,7 @@ const ProjectDetailPage = () => {
                   className="col-span-2 bg-white p-4 rounded-2xl shadow-lg border border-gray-100 h-[210px] overflow-hidden"
                   initial={{ y: 30, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.7 }}
+                  transition={{ delay: 0.8 }}
                 >
                   <MapContainer center={[project.latitude, project.longitude]} zoom={10} className="h-full w-full rounded-xl">
                     <MapUpdater center={[project.latitude, project.longitude]} zoom={10} />
