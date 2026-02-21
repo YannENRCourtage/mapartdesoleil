@@ -18,10 +18,10 @@ L.Icon.Default.mergeOptions({
 });
 
 const ProjectIcon = new L.Icon({
-  iconUrl: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMDA2NkNDIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgY2xhc3M9Imx1Y2lkZSBsdWNpZGUtbWFwLXBpbiI+PHBhdGggZD0iTTIwIDEwYzAgNC45OTMtNS41MyAxMC4zNS03LjUgMTIuMDU3YS40NTIuNDUyIDAgMCAxLS42IDBDOS41MyAyMC4zNSA0IDE0Ljk5MyA0IDEwYTYgNiAwIDAgMSAxMiAwWiIvPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTAiIHI9IjMiLz48L3N2Zz4=',
-  iconSize: [32, 32],
-  iconAnchor: [16, 32],
-  popupAnchor: [0, -32],
+  iconUrl: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjRkY3RjAwIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgY2xhc3M9Imx1Y2lkZSBsdWNpZGUtbWFwLXBpbiI+PHBhdGggZD0iTTIwIDEwYzAgNC45OTMtNS41MyAxMC4zNS03LjUgMTIuMDU3YS40NTIuNDUyIDAgMCAxLS42IDBDOS41MyAyMC4zNSA0IDE0Ljk5MyA0IDEwYTYgNiAwIDAgMSAxMiAwWiIvPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTAiIHI9IjMiLz48L3N2Zz4=',
+  iconSize: [48, 48],
+  iconAnchor: [24, 48],
+  popupAnchor: [0, -48],
 });
 
 const MapUpdater = ({ center, zoom }) => {
@@ -71,8 +71,8 @@ const ProjectsPage = () => {
       </Helmet>
 
 
-      <section className="py-16 bg-gradient-to-r from-[#004A99] to-[#0066CC] text-white text-center relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] animate-pulse"></div>
+      <section className="py-20 bg-gradient-to-br from-[#1e3a8a] via-[#1d4ed8] to-[#60a5fa] text-white text-center relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] animate-pulse"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.h1
             className="text-4xl md:text-5xl font-extrabold leading-tight mb-4 drop-shadow-lg"
@@ -141,7 +141,7 @@ const ProjectsPage = () => {
                 {projects.map((project) => {
                   if (!project.latitude || !project.longitude) return null;
                   return (
-                    <Marker key={project.id} position={[project.latitude, project.longitude]} icon={ProjectIcon}>
+                    <Marker key={project.id} position={[project.latitude, project.longitude]} icon={ProjectIcon} title="">
                       <Circle
                         center={[project.latitude, project.longitude]}
                         radius={(project.eligibilityDistance || 0) * 1000} // Convert km to meters
