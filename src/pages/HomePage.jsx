@@ -19,7 +19,7 @@ const HomePage = () => {
 
   useEffect(() => {
     try {
-      const storedProjects = localStorage.getItem('projects_data');
+      const storedProjects = localStorage.getItem('projects_data_v2');
       const projectsToUse = storedProjects ? JSON.parse(storedProjects) : allProjects;
       const shuffled = [...projectsToUse].sort(() => 0.5 - Math.random());
       setRandomProjects(shuffled.slice(0, 3));
@@ -59,9 +59,10 @@ const HomePage = () => {
         <meta name="description" content="Ma part de soleil : Devenez acteur de la transition énergétique locale en participant à des projets solaires collectifs." />
       </Helmet>
 
+      {/* Hero Section */}
       <section
         className="relative bg-cover bg-center py-20 md:py-32 text-white flex items-center justify-center"
-        style={{ backgroundImage: 'url(/images/photo-solaire.jpg)' }}
+        style={{ backgroundImage: `url(${heroRoofImage})` }}
       >
         <div className="absolute inset-0 bg-black opacity-40"></div>
         <div className="relative z-10 text-center px-4">
@@ -100,8 +101,14 @@ const HomePage = () => {
           </motion.div>
         </div>
       </section>
-
-
+      {/* Vignoble Photo Section */}
+      <section className="w-full overflow-hidden" style={{ height: '480px' }}>
+        <img
+          src="/images/photo-vignoble.jpg"
+          alt="Installation panneaux solaires sur vignoble"
+          className="w-full h-full object-cover"
+        />
+      </section>
 
       {/* How It Works Section */}
       <section className="py-16 bg-gray-50">

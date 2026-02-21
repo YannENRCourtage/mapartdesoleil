@@ -46,7 +46,7 @@ const ProjectDetailPage = () => {
 
   useEffect(() => {
     try {
-      const storedProjects = localStorage.getItem('projects_data');
+      const storedProjects = localStorage.getItem('projects_data_v2');
       const projectsToUse = storedProjects ? JSON.parse(storedProjects) : initialProjects;
       const foundProject = projectsToUse.find((p) => p.id === projectId);
       if (foundProject) {
@@ -165,54 +165,62 @@ const ProjectDetailPage = () => {
                   <p className="text-sm text-gray-500">Production annuelle</p>
                   <p className="text-xl font-bold text-gray-800">{project.annualProduction} MWh/an</p>
                 </div>
-                <div className="bg-white p-4 rounded-xl shadow-md">
-                  <p className="text-sm text-gray-500">Participants</p>
-                  <p className="text-xl font-bold text-gray-800">{project.participants} / {project.maxParticipants}</p>
-                </div>
-                <div className="bg-white p-4 rounded-xl shadow-md">
-                  <p className="text-sm text-gray-500">Éligibilité</p>
-                  <p className="text-xl font-bold text-gray-800">{project.eligibilityDistance} km</p>
-                </div>
+                {project.participants > 0 && (
+                  <div className="bg-white p-4 rounded-xl shadow-md">
+                    <p className="text-sm text-gray-500">Participants</p>
+                    <p className="text-xl font-bold text-gray-800">{project.participants} / {project.maxParticipants}</p>
+                  </div>
+                )}
+                {project.eligibilityDistance > 0 && (
+                  <div className="bg-white p-4 rounded-xl shadow-md">
+                    <p className="text-sm text-gray-500">Éligibilité</p>
+                    <p className="text-xl font-bold text-gray-800">{project.eligibilityDistance} km</p>
+                  </div>
+                )}
               </motion.div>
-              
-              <motion.div
-                className="bg-white p-8 rounded-xl shadow-lg h-[400px] overflow-hidden"
-                initial={{ y: 30, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.5, duration: 0.6 }}
-              >
-                <h2 className="text-2xl font-bold text-gray-800 mb-4">Zone d'éligibilité</h2>
-                <MapContainer center={[project.latitude, project.longitude]} zoom={13} className="h-full w-full rounded-lg">
-                  <MapUpdater center={[project.latitude, project.longitude]} zoom={11} />
-                  <TileLayer
-                    url="https://wxs.ign.fr/choisirgeoportail/geoportail/wmts?SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&FORMAT=image/jpeg&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}"
-                    attribution='&copy; <a href="https://www.ign.fr/">IGN</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                  />
-                   <Marker position={[project.latitude, project.longitude]} icon={SunIcon}></Marker>
-                  <Circle
-                    center={[project.latitude, project.longitude]}
-                    radius={project.eligibilityDistance * 1000}
-                    color="#FF7F00"
-                    fillColor="#FFC800"
-                    fillOpacity={0.3}
-                    weight={2}
-                  />
-                </MapContainer>
-              </motion.div>
+
+              {(project.latitude && project.longitude && project.eligibilityDistance > 0) && (
+                <motion.div
+                  className="bg-white p-8 rounded-xl shadow-lg h-[400px] overflow-hidden"
+                  initial={{ y: 30, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.5, duration: 0.6 }}
+                >
+                  <h2 className="text-2xl font-bold text-gray-800 mb-4">Zone d'éligibilité</h2>
+                  <MapContainer center={[project.latitude, project.longitude]} zoom={13} className="h-full w-full rounded-lg">
+                    <MapUpdater center={[project.latitude, project.longitude]} zoom={11} />
+                    <TileLayer
+                      url="https://wxs.ign.fr/choisirgeoportail/geoportail/wmts?SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&FORMAT=image/jpeg&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}"
+                      attribution='&copy; <a href="https://www.ign.fr/">IGN</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                    />
+                    <Marker position={[project.latitude, project.longitude]} icon={SunIcon}></Marker>
+                    <Circle
+                      center={[project.latitude, project.longitude]}
+                      radius={project.eligibilityDistance * 1000}
+                      color="#FF7F00"
+                      fillColor="#FFC800"
+                      fillOpacity={0.3}
+                      weight={2}
+                    />
+                  </MapContainer>
+                </motion.div>
+              )}
 
             </div>
 
             <div className="lg:w-1/3 space-y-6 lg:sticky top-24 self-start">
-               <motion.div
-                className="bg-gradient-to-br from-yellow-400 to-orange-500 p-6 rounded-xl shadow-lg text-white"
-                initial={{ x: 50, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.6, duration: 0.6 }}
-              >
-                <h2 className="text-xl font-bold mb-2">Tarif Consommateur</h2>
-                <p className="text-4xl font-extrabold">{project.consumerTariff}€ <span className="text-2xl font-normal">/kWh</span></p>
-                <p className="text-sm opacity-90 mt-2">Un tarif juste et stable pour une énergie locale.</p>
-              </motion.div>
+              {project.consumerTariff > 0 && (
+                <motion.div
+                  className="bg-gradient-to-br from-yellow-400 to-orange-500 p-6 rounded-xl shadow-lg text-white"
+                  initial={{ x: 50, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: 0.6, duration: 0.6 }}
+                >
+                  <h2 className="text-xl font-bold mb-2">Tarif Consommateur</h2>
+                  <p className="text-4xl font-extrabold">{project.consumerTariff}€ <span className="text-2xl font-normal">/kWh</span></p>
+                  <p className="text-sm opacity-90 mt-2">Un tarif juste et stable pour une énergie locale.</p>
+                </motion.div>
+              )}
 
               <motion.div
                 className="bg-white p-6 rounded-xl shadow-lg"

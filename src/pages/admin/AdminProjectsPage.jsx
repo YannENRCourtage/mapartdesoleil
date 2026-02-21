@@ -31,12 +31,12 @@ const AdminProjectsPage = () => {
 
   useEffect(() => {
     try {
-      const storedProjects = localStorage.getItem('projects_data');
+      const storedProjects = localStorage.getItem('projects_data_v2');
       if (storedProjects) {
         setProjects(JSON.parse(storedProjects));
       } else {
         setProjects(allProjects);
-        localStorage.setItem('projects_data', JSON.stringify(allProjects));
+        localStorage.setItem('projects_data_v2', JSON.stringify(allProjects));
       }
     } catch (e) {
       console.error("Failed to load projects:", e);
@@ -55,16 +55,16 @@ const AdminProjectsPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     try {
       if (isEditing && editingProject) {
-        const updatedProjects = projects.map(p => 
-          p.id === editingProject.id 
+        const updatedProjects = projects.map(p =>
+          p.id === editingProject.id
             ? { ...p, ...formData, capacity: parseFloat(formData.capacity), participants: parseInt(formData.participants) }
             : p
         );
         setProjects(updatedProjects);
-        localStorage.setItem('projects_data', JSON.stringify(updatedProjects));
+        localStorage.setItem('projects_data_v2', JSON.stringify(updatedProjects));
         toast({
           title: "Projet modifié",
           description: "Le projet a été mis à jour avec succès.",
@@ -76,18 +76,19 @@ const AdminProjectsPage = () => {
           ...formData,
           capacity: parseFloat(formData.capacity),
           participants: parseInt(formData.participants),
-          coordinates: [45.75, 4.85] // Default coordinates
+          latitude: 45.75, // Default coordinates
+          longitude: 4.85
         };
         const updatedProjects = [...projects, newProject];
         setProjects(updatedProjects);
-        localStorage.setItem('projects_data', JSON.stringify(updatedProjects));
+        localStorage.setItem('projects_data_v2', JSON.stringify(updatedProjects));
         toast({
           title: "Projet créé",
           description: "Le nouveau projet a été ajouté avec succès.",
           variant: "success",
         });
       }
-      
+
       resetForm();
     } catch (e) {
       console.error("Failed to save project:", e);
@@ -119,7 +120,7 @@ const AdminProjectsPage = () => {
       try {
         const updatedProjects = projects.filter(p => p.id !== projectId);
         setProjects(updatedProjects);
-        localStorage.setItem('projects_data', JSON.stringify(updatedProjects));
+        localStorage.setItem('projects_data_v2', JSON.stringify(updatedProjects));
         toast({
           title: "Projet supprimé",
           description: "Le projet a été supprimé avec succès.",

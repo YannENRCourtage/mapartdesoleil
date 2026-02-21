@@ -21,10 +21,10 @@ const AdminDashboardPage = () => {
     try {
       const storedUsers = localStorage.getItem('users_data');
       const users = storedUsers ? JSON.parse(storedUsers) : [];
-      
-      const storedProjects = localStorage.getItem('projects_data');
+
+      const storedProjects = localStorage.getItem('projects_data_v2');
       const projects = storedProjects ? JSON.parse(storedProjects) : allProjects;
-      
+
       const storedApplications = localStorage.getItem('applications_data');
       const applications = storedApplications ? JSON.parse(storedApplications) : [];
 

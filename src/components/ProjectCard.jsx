@@ -21,15 +21,17 @@ const ProjectCard = ({ project }) => {
         <div className="p-6">
           <h3 className="text-xl font-bold text-gray-900 mb-2">{project.name}</h3>
           <p className="text-gray-600 text-sm mb-4 line-clamp-2">{project.description}</p>
-          
+
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center text-gray-700 text-sm">
               <MapPin className="h-4 w-4 mr-1 text-[#FF7F00]" />
               {project.location}
             </div>
-            <div className="text-lg font-bold text-[#FF7F00]">
-              {project.consumerTariff} €/kWh
-            </div>
+            {project.consumerTariff > 0 && (
+              <div className="text-lg font-bold text-[#FF7F00]">
+                {project.consumerTariff} €/kWh
+              </div>
+            )}
           </div>
 
           <div className="grid grid-cols-2 gap-2 text-gray-700 text-sm">
@@ -41,14 +43,18 @@ const ProjectCard = ({ project }) => {
               <Sun className="h-4 w-4 mr-1 text-yellow-500" />
               {project.annualProduction} MWh/an
             </div>
-            <div className="flex items-center">
-              <Users className="h-4 w-4 mr-1 text-green-500" />
-              {project.participants}/{project.maxParticipants} participants
-            </div>
-            <div className="flex items-center">
-              <MapPin className="h-4 w-4 mr-1 text-purple-500" />
-              {project.eligibilityDistance} km éligibilité
-            </div>
+            {(project.participants > 0 || project.maxParticipants > 0) && (
+              <div className="flex items-center">
+                <Users className="h-4 w-4 mr-1 text-green-500" />
+                {project.participants}/{project.maxParticipants} participants
+              </div>
+            )}
+            {project.eligibilityDistance > 0 && (
+              <div className="flex items-center">
+                <MapPin className="h-4 w-4 mr-1 text-purple-500" />
+                {project.eligibilityDistance} km éligibilité
+              </div>
+            )}
           </div>
         </div>
       </Link>

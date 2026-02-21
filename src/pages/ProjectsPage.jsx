@@ -40,7 +40,7 @@ const ProjectsPage = () => {
 
   useEffect(() => {
     try {
-      const storedProjects = localStorage.getItem('projects_data');
+      const storedProjects = localStorage.getItem('projects_data_v2');
       setProjects(storedProjects ? JSON.parse(storedProjects) : initialProjects);
     } catch (e) {
       console.error("Failed to load projects from localStorage:", e);
@@ -136,25 +136,28 @@ const ProjectsPage = () => {
                   url="https://wxs.ign.fr/choisirgeoportail/geoportail/wmts?SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&FORMAT=image/jpeg&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}"
                   attribution='&copy; <a href="https://www.ign.fr/">IGN</a> Geoportail | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 />
-                {projects.map((project) => (
-                  <Marker key={project.id} position={[project.latitude, project.longitude]} icon={SunIcon}>
-                    <Circle
-                      center={[project.latitude, project.longitude]}
-                      radius={project.eligibilityDistance * 1000} // Convert km to meters
-                      color="#FF7F00"
-                      fillColor="#FF7F00"
-                      fillOpacity={0.2}
-                      weight={2}
-                    />
-                    <L.Popup>
-                      <Link to={`/projet/${project.id}`} className="font-bold text-[#FF7F00] hover:underline">
-                        {project.name}
-                      </Link>
-                      <br />
-                      {project.location}
-                    </L.Popup>
-                  </Marker>
-                ))}
+                {projects.map((project) => {
+                  if (!project.latitude || !project.longitude) return null;
+                  return (
+                    <Marker key={project.id} position={[project.latitude, project.longitude]} icon={SunIcon}>
+                      <Circle
+                        center={[project.latitude, project.longitude]}
+                        radius={(project.eligibilityDistance || 0) * 1000} // Convert km to meters
+                        color="#FF7F00"
+                        fillColor="#FF7F00"
+                        fillOpacity={0.2}
+                        weight={2}
+                      />
+                      <L.Popup>
+                        <Link to={`/projet/${project.id}`} className="font-bold text-[#FF7F00] hover:underline">
+                          {project.name}
+                        </Link>
+                        <br />
+                        {project.location}
+                      </L.Popup>
+                    </Marker>
+                  );
+                })}
               </MapContainer>
             </motion.div>
           </div>

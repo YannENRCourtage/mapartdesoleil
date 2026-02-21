@@ -46,10 +46,10 @@ const ProjectMap = () => {
   // Calcule un centre “moyen” sur les projets filtrés pour recentrer la carte
   const mapCenter = useMemo(() => {
     if (!filteredProjects.length) return defaultCenter;
-    const valid = filteredProjects.filter(p => p.location?.lat && p.location?.lng);
+    const valid = filteredProjects.filter(p => p.latitude && p.longitude);
     if (!valid.length) return defaultCenter;
-    const avgLat = valid.reduce((s, p) => s + p.location.lat, 0) / valid.length;
-    const avgLng = valid.reduce((s, p) => s + p.location.lng, 0) / valid.length;
+    const avgLat = valid.reduce((s, p) => s + p.latitude, 0) / valid.length;
+    const avgLng = valid.reduce((s, p) => s + p.longitude, 0) / valid.length;
     return [avgLat, avgLng];
   }, [filteredProjects]);
 
@@ -108,23 +108,23 @@ const ProjectMap = () => {
           >
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
             {filteredProjects.map((project) => {
-              const { location } = project;
-              if (!location?.lat || !location?.lng) return null;
+              const { latitude, longitude } = project;
+              if (!latitude || !longitude) return null;
               return (
                 <Marker
                   key={project.id}
-                  position={[location.lat, location.lng]}
+                  position={[latitude, longitude]}
                   icon={markerIcon}
                 >
                   <Popup>
                     <div className="text-foreground">
                       <div className="font-semibold text-primary">{project.name}</div>
-                      <div className="text-sm">{location.city || 'Localisation'}</div>
+                      <div className="text-sm">{project.location || 'Localisation'}</div>
                       <div className="text-xs mt-1">
                         Puissance : <strong>{project.power ?? project.capacity ?? '—'} kWc</strong>
                       </div>
                       <Button asChild size="sm" className="mt-2 w-full">
-                        <Link to={`/projets/${project.id}`}>En savoir plus</Link>
+                        <Link to={`/projet/${project.id}`}>En savoir plus</Link>
                       </Button>
                     </div>
                   </Popup>

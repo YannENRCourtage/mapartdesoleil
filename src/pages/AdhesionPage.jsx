@@ -29,7 +29,7 @@ const AdhesionPage = () => {
 
   useEffect(() => {
     try {
-      const storedProjects = localStorage.getItem('projects_data');
+      const storedProjects = localStorage.getItem('projects_data_v2');
       const projectsToUse = storedProjects ? JSON.parse(storedProjects) : initialProjects;
       const foundProject = projectsToUse.find((p) => p.id === projectId);
       if (foundProject) {
