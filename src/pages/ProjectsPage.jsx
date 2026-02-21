@@ -7,7 +7,7 @@ import { MapContainer, TileLayer, Marker, Circle, useMap, Popup } from 'react-le
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { useToast } from '@/components/ui/use-toast';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 // Fix for default marker icon issue with Webpack
 delete L.Icon.Default.prototype._getIconUrl;
@@ -29,20 +29,6 @@ const MapUpdater = ({ center, zoom }) => {
   useEffect(() => {
     map.setView(center, zoom);
   }, [center, zoom, map]);
-  return null;
-};
-
-const ScrollToTop = () => {
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
-    });
-  }, [pathname]);
-
   return null;
 };
 
